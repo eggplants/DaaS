@@ -5,11 +5,11 @@ import re
 from pathlib import Path
 
 import emoji
-import jaconv
-import kanjize
+import jaconv  # type: ignore[import]
+import kanjize  # type: ignore[import]
 import mojimoji
-import pyboin
-from janome.tokenizer import Tokenizer
+import pyboin  # type: ignore[import]
+from janome.tokenizer import Tokenizer  # type: ignore[import]
 
 from daas import config
 
@@ -33,7 +33,7 @@ def reading(text: str) -> str:
     # words that cannot be converted
     result = re.sub(r"[a-zA-Z][a-z]+", "", result)
     for word in re.findall(r"[a-zA-Z]+", result):
-        result = result.replace(word, pyboin.alphabet_to_reading(word))
+        result = result.replace(word, str(pyboin.alphabet_to_reading(word)))
 
     return result
 
@@ -48,7 +48,7 @@ def convert_morphs(text: str, filtering: bool = False) -> list[str]:
                 break
         else:
             if token.reading == "*":
-                result.append(jaconv.hira2kata(token.surface))
+                result.append(str(jaconv.hira2kata(token.surface)))
             else:
                 result.append(token.reading)
 
@@ -62,7 +62,7 @@ def preprocessing(text: str) -> str:
     # number -> kanji
     result = re.sub(
         r"\d+",
-        lambda m: kanjize.number2kanji(int(m.group(0))),
+        lambda m: str(kanjize.number2kanji(int(m.group(0)))),
         result,
     )
     # remove '笑'

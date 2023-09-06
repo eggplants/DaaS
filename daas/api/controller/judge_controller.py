@@ -13,7 +13,7 @@ judge_router = APIRouter()
 
 @judge_router.get("/", status_code=200, response_model=JudgeResponse, include_in_schema=False)
 @judge_router.get("", status_code=200, response_model=JudgeResponse)
-async def judge_dajare(request: JudgeRequest = Depends()):
+async def judge_dajare(request: JudgeRequest = Depends()) -> JudgeResponse:
     # judge dajare
     try:
         dajare = dajare_service.judge_dajare(request.dajare)

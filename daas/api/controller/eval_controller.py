@@ -13,7 +13,7 @@ eval_router = APIRouter()
 
 @eval_router.get("/", status_code=200, response_model=EvalResponse, include_in_schema=False)
 @eval_router.get("", status_code=200, response_model=EvalResponse)
-async def eval_dajare(request: EvalRequest = Depends()):
+async def eval_dajare(request: EvalRequest = Depends()) -> EvalResponse:
     # eval dajare
     try:
         dajare = dajare_service.eval_dajare(request.dajare)

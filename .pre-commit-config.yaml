@@ -42,16 +42,15 @@ repos:
     args: [--strict]
     additional_dependencies:
     - types-emoji
-- repo: https://github.com/murilo-cunha/mirrors-pyre
-  rev: v0.9.18
-  hooks:
-  - id: pyre-check
-    additional_dependencies:
-    - pytest
-    - rich
+    - pydantic
+    - mojimoji
+    - levenshtein
+    - numpy
+    - fastapi
+    - types-tqdm
+    - uvicorn
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.36.0
   hooks:
   - id: markdownlint
-    exclude: ^.github/PULL_REQUEST_TEMPLATE.md
-    args: [--disable=MD013]
+    args: [--disable=MD013, --disable=MD033]

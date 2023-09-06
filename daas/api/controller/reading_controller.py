@@ -13,7 +13,7 @@ reading_router = APIRouter()
 
 @reading_router.get("/", status_code=200, response_model=ReadingResponse, include_in_schema=False)
 @reading_router.get("", status_code=200, response_model=ReadingResponse)
-async def reading_dajare(request: ReadingRequest = Depends()):
+async def reading_dajare(request: ReadingRequest = Depends()) -> ReadingResponse:
     # convert reading
     try:
         dajare = dajare_service.convert_reading(request.dajare)

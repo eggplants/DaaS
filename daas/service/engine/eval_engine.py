@@ -15,7 +15,7 @@ class CacheData(BaseModel):
 
 class EvalEngine:
     def __init__(self) -> None:
-        self.score_cache: list[dict] = []
+        self.score_cache: list[CacheData] = []
 
     def exec(self, text: str) -> float:  # noqa: A003
         # preprocessing

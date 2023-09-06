@@ -35,7 +35,7 @@ def start_mode() -> None:
     uvicorn.run(app, host=config.API_HOST, port=config.API_PORT)
 
 
-def accuracy_mode():
+def accuracy_mode() -> None:
     # load dajare samples
     data: list[DajareData] = []
     files: list[Path] = list(Path(config.DATA_FILE_PATH).glob("[!error]*.json"))
@@ -54,7 +54,7 @@ def accuracy_mode():
     app = TestClient(create_app())
 
     # measure accuracy
-    error_samples: list[dict] = []
+    error_samples: list[ErrorSample] = []
     print(message.MEASURE_ACCURACY_MSG(n_samples))
     for sample in tqdm.tqdm(data):
         judge_res = app.get("judge", params={"dajare": sample.dajare}).json()

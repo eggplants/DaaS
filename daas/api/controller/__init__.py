@@ -28,7 +28,7 @@ def create_app() -> FastAPI:
 
     # index
     @app.get("/")
-    def index():
+    def index() -> str:
         return "Hello, World!"
 
     # OpenAPI

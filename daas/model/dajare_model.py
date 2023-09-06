@@ -13,7 +13,7 @@ class DajareModel:
         return self.__text
 
     @text.setter
-    def text(self, text: str):
+    def text(self, text: str) -> None:
         if not isinstance(text, str):
             msg = "invalid type"
             raise TypeError(msg)
@@ -24,7 +24,7 @@ class DajareModel:
         return self.__is_dajare
 
     @is_dajare.setter
-    def is_dajare(self, is_dajare: bool):
+    def is_dajare(self, is_dajare: bool) -> None:
         if not isinstance(is_dajare, bool):
             msg = "invalid type"
             raise TypeError(msg)
@@ -35,7 +35,7 @@ class DajareModel:
         return self.__score
 
     @score.setter
-    def score(self, score: float):
+    def score(self, score: float) -> None:
         if not isinstance(score, float):
             msg = "invalid type"
             raise TypeError(msg)
@@ -49,7 +49,7 @@ class DajareModel:
         return self.__reading
 
     @reading.setter
-    def reading(self, reading: str):
+    def reading(self, reading: str) -> None:
         if not isinstance(reading, str):
             msg = "invalid type"
             raise TypeError(msg)
@@ -60,7 +60,7 @@ class DajareModel:
         return self.__applied_rule
 
     @applied_rule.setter
-    def applied_rule(self, applied_rule: str):
+    def applied_rule(self, applied_rule: str) -> None:
         if not isinstance(applied_rule, str):
             msg = "invalid type"
             raise TypeError(msg)

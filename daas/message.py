@@ -28,6 +28,6 @@ def N_SAMPLES_INPUT_GUIDE(default_samples: int, max_samples: int) -> str:
     return result
 
 
-def APPLIED_RULE(dajare: str, rule_name: str):
+def APPLIED_RULE(dajare: str, rule_name: str) -> str:
     result: str = f"Applied rule ({dajare}) : {FontColors.GREEN}{rule_name}{FontColors.RESET}"
     return result

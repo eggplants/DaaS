@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from typing import Callable
 
-import pyboin
+import pyboin  # type: ignore[import]
 
 from daas import config
 from daas.util import text_util
@@ -47,7 +47,7 @@ class JudgeEngine:
 
         return self.__rec_judge(reading, morphs, len(reading) >= config.TIGHT_LENGTH)
 
-    def __judge(self, reading, morphs, is_tight=False):
+    def __judge(self, reading: str, morphs: list[str], is_tight: bool = False) -> bool:
         methods = [
             # 2文字以上の形態素が一致
             self.__pass_morphs_overlap,
@@ -70,7 +70,7 @@ class JudgeEngine:
 
         return False
 
-    def __rec_judge(self, reading, morphs, is_tight=False):
+    def __rec_judge(self, reading: str, morphs: list[str], is_tight: bool = False) -> bool:
         if self.__judge(reading, morphs, is_tight):
             return True
         if is_tight:
@@ -98,7 +98,7 @@ class JudgeEngine:
 
         return False
 
-    def __force_pass(self, text):
+    def __force_pass(self, text: str) -> bool:
         for pattern in self.pass_patterns:
             if re.search(pattern, text) is not None:
                 self.applied_rule = sys._getframe().f_code.co_name  # noqa: SLF001
@@ -106,7 +106,7 @@ class JudgeEngine:
 
         return False
 
-    def __force_reject(self, text):
+    def __force_reject(self, text: str) -> bool:
         methods = [
             # 30文字以上
             self.__reject_length,
@@ -133,7 +133,7 @@ class JudgeEngine:
 
         return False
 
-    def __load_patterns(self, file):
+    def __load_patterns(self, file: str) -> list[str]:
         result = []
         with Path(file).open(mode="r") as f:
             result = f.read().split("\n")
@@ -141,7 +141,7 @@ class JudgeEngine:
 
         return result
 
-    def __text_to_char_pair(self, reading, n=3):
+    def __text_to_char_pair(self, reading: str, n: int = 3) -> list[list[str]]:
         result = []
         n_gram = text_util.n_gram(reading, n)
         for i, ch1 in enumerate(n_gram):
@@ -154,7 +154,7 @@ class JudgeEngine:
                         result.append([ch1, ch2])
         return result
 
-    def __conv_with_pattern(self, reading, morphs):
+    def __conv_with_pattern(self, reading: str, morphs: list[str]) -> tuple[str, list[str]]:
         if self.text_proc_index > 1:
             return reading, morphs
 
@@ -170,15 +170,15 @@ class JudgeEngine:
                 morphs = [mrph.replace(ptrn[0], ptrn[1]) for mrph in morphs]
         return reading, morphs
 
-    def __conv_vowel_to_pron(self, reading, morphs):
-        conv_petterns = [
-            ["オウ", lambda ch: ch[0] + "ー"],
-            ["エイ", lambda ch: ch[0] + "ー"],
+    def __conv_vowel_to_pron(self, reading: str, morphs: list[str]) -> tuple[str, list[str]]:
+        conv_petterns: list[tuple[str, Callable[[str], str]]] = [
+            ("オウ", lambda ch: ch[0] + "ー"),
+            ("エイ", lambda ch: ch[0] + "ー"),
         ]
 
         for ptrn in conv_petterns:
             for ch in text_util.n_gram(reading, 2):
-                if pyboin.text2boin(ch[0]) + ch[1] == ptrn[0]:
+                if str(pyboin.text2boin(ch[0])) + ch[1] == ptrn[0]:
                     reading = reading.replace(ch, ptrn[1](ch))
                     morphs = [mrph.replace(ch, ptrn[1](ch)) for mrph in morphs]
         return reading, morphs
@@ -187,14 +187,14 @@ class JudgeEngine:
         for i in range(len(reading) - 1):
             if reading[i + 1] not in "アイウエオ":
                 continue
-            if pyboin.text2boin(reading[i]) == pyboin.text2boin(reading[i + 1]):
+            if str(pyboin.text2boin(reading[i])) == str(pyboin.text2boin(reading[i + 1])):
                 reading = reading[: i + 1] + "ー" + reading[i + 2 :]
         reading = re.sub(r"ー+", "ー", reading)
         return reading, morphs
 
-    def __conv_prev_of_lower_ch_to_vowel(self, reading, morphs):
+    def __conv_prev_of_lower_ch_to_vowel(self, reading: str, morphs: list[str]) -> tuple[str, list[str]]:
         for ch in re.findall(r".[ァィゥェォャュョヮ]", reading):
-            reading = reading.replace(ch, pyboin.convert_vowel(ch[0], pyboin.text2boin(ch[1])))
+            reading = reading.replace(ch, str(pyboin.convert_vowel(ch[0], str(pyboin.text2boin(ch[1])))))
         return reading, morphs
 
     def __pass_morphs_overlap(self, _reading: str, morphs: list[str], is_tight: bool = False) -> bool:
@@ -226,7 +226,7 @@ class JudgeEngine:
                 continue
             if self.__count_char_matches(ch1, ch2, True) < 2:
                 continue
-            if sorted(pyboin.text2boin(ch1)) == sorted(pyboin.text2boin(ch2)):
+            if sorted(str(pyboin.text2boin(ch1))) == sorted(str(pyboin.text2boin(ch2))):
                 return True
         return False
 
@@ -267,41 +267,38 @@ class JudgeEngine:
 
         return False
 
-    def __reject_force_patterns(self, text):
-        for ptrn in self.reject_patterns:
-            if re.search(ptrn, text) is not None:
-                return True
-        return None
+    def __reject_force_patterns(self, text: str) -> bool:
+        return any(re.search(ptrn, text) is not None for ptrn in self.reject_patterns)
 
-    def __reject_only_katakana(self, text):
-        return re.fullmatch(r"[ァ-ヴー]+", text)
+    def __reject_only_katakana(self, text: str) -> bool:
+        return re.fullmatch(r"[ァ-ヴー]+", text) is not None
 
-    def __reject_length(self, text):
+    def __reject_length(self, text: str) -> bool:
         return len(text) >= 30
 
-    def __reject_ch_many_times_used(self, text):
+    def __reject_ch_many_times_used(self, text: str) -> bool:
         cnt_ch = collections.Counter(text).most_common()
         if cnt_ch != []:
             return cnt_ch[0][1] >= 6
-        return None
+        return False
 
-    def __reject_only_used_alphanumeric(self, text):
+    def __reject_only_used_alphanumeric(self, text: str) -> bool:
         return re.fullmatch(r"[\da-zA-Z]*", text) is not None
 
-    def __reject_block_many_times_used(self, text):
+    def __reject_block_many_times_used(self, text: str) -> bool:
         chars = []
         chars.extend(re.findall(r"[ぁ-んー]{3,}", text))
         chars.extend(re.findall(r"[ァ-ンー]{3,}", text))
         return len(set(chars)) != len(chars)
 
-    def __reject_2_ch_match(self, text):
+    def __reject_2_ch_match(self, text: str) -> bool:
         if self.__full_text_n_matches(self.ori_reading) >= 4:
             chars = re.findall(r"[^ぁ-んァ-ンー][^\da-zA-Z].{3}", text)
             return len(set(chars)) != len(chars)
         chars = re.findall(r"[^ぁ-んァ-ンー][^\da-zA-Z]", text)
         return len(set(chars)) != len(chars)
 
-    def __reject_lapel_pattern(self, text):
+    def __reject_lapel_pattern(self, text: str) -> bool:
         pivot = len(text) // 2
         return text[:pivot] == text[pivot + len(text) % 2 :]
 
@@ -313,7 +310,7 @@ class JudgeEngine:
                     result = n
         return result
 
-    def __count_char_matches(self, ch1: str, ch2: str, no_order: bool = False, magic_nn: bool = False):
+    def __count_char_matches(self, ch1: str, ch2: str, no_order: bool = False, magic_nn: bool = False) -> int:
         if len(ch1) != len(ch2):
             return 0
 
