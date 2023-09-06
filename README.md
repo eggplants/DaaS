@@ -27,7 +27,7 @@ Automatically determines whether a posted sentence is pun, and if true, gives a 
 ## Installation
 
 ```sh
-$ pip install git+https://github.com/rits-dajare/DaaS
+pip install git+https://github.com/rits-dajare/DaaS
 ```
 
 ## Usage
@@ -35,18 +35,27 @@ $ pip install git+https://github.com/rits-dajare/DaaS
 ### Run
 
 ```sh
-$ daas start
+daas --start
 ```
 
 If you want to know the details of how to use this, run the following command.
 
 ```sh
-$ daas help
+daas --help
 ```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/rits-dajare/DaaS](https://github.com/rits-dajare/DaaS).
+Bug reports and pull requests are welcome on GitHub at <https://github.com/rits-dajare/DaaS>.
+
+You can setup development environment with:
+
+```sh
+git clone https://github.com/rits-dajare/DaaS
+cd DaaS
+poetry shell
+poetry install && pre-comit install
+```
 
 ## Refarence
 
