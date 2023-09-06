@@ -19,7 +19,7 @@ class TestAPI(unittest.TestCase):
 
     def test_正_ダジャレを判定(self):
         # setup
-        request_body = JudgeRequest(dajare=self.SAMPLE_STR)
+        request_body = JudgeRequest(dajare=self.SAMPLE_STR).model_dump()
 
         # test
         res = self.app.get(self.DAJARE_JUDGE_PATH, params=request_body)
@@ -38,7 +38,7 @@ class TestAPI(unittest.TestCase):
 
     def test_正_ダジャレを評価(self):
         # setup
-        request_body = EvalRequest(dajare=self.SAMPLE_STR)
+        request_body = EvalRequest(dajare=self.SAMPLE_STR).model_dump()
 
         # test
         res = self.app.get(self.DAJARE_EVAL_PATH, params=request_body)
@@ -57,7 +57,7 @@ class TestAPI(unittest.TestCase):
 
     def test_正_ダジャレを読みに変換(self):
         # setup
-        request_body = ReadingRequest(dajare=self.SAMPLE_STR)
+        request_body = ReadingRequest(dajare=self.SAMPLE_STR).model_dump()
 
         # test
         res = self.app.get(self.DAJARE_READING_PATH, params=request_body)
