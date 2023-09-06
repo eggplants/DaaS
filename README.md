@@ -10,29 +10,24 @@
 
 <div align="center">
 
-![](https://raw.githubusercontent.com/Ritsumeikan-Dajare-Circle/media/d72e2dbf8459689384af0de9e8b8d3e2d36a9cd2/logo/source.svg?sanitize=true)
+![Ritsumeikan-Dajare-Circle logo](https://raw.githubusercontent.com/Ritsumeikan-Dajare-Circle/media/d72e2dbf8459689384af0de9e8b8d3e2d36a9cd2/logo/source.svg?sanitize=true)
 
 </div>
 
 ## Description
 
-This project's objective is to spread puns posted on RDC official slack's #ダジャレ channel through an official [Twitter account](https://twitter.com/rits_dajare).<br>
+This project's objective is to spread puns posted on RDC official slack's #ダジャレ channel through an official [Twitter account](https://twitter.com/rits_dajare).
 Automatically determines whether a posted sentence is pun, and if true, gives a star with the rating engine.
 
 ## Requiremenst
 
 - Python ~> 3.9
-- pipenv
+- Poetry
 
 ## Installation
 
 ```sh
-$ git clone <this repo>
-$ cd <this repo>
-
-$ pip install -U pip
-$ pip install pipenv
-$ pipenv install
+$ pip install git+https://github.com/rits-dajare/DaaS
 ```
 
 ## Usage
@@ -40,13 +35,13 @@ $ pipenv install
 ### Run
 
 ```sh
-$ pipenv run start
+$ daas start
 ```
 
 If you want to know the details of how to use this, run the following command.
 
 ```sh
-$ pipenv run help
+$ daas help
 ```
 
 ## Contributing
