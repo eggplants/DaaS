@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from core.service.dajare_service import DajareService
-from core.api.request.reading_request import ReadingRequest
-from core.api.response.reading_response import ReadingResponse
+from daas.service.dajare_service import DajareService
+from ..request.reading_request import ReadingRequest
+from ..response.reading_response import ReadingResponse
 
 dajare_service = DajareService()
 
-router = APIRouter()
+reading_router = APIRouter()
 
 
 @router.get('/', status_code=200, response_model=ReadingResponse, include_in_schema=False)

@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import judge_controller
-from . import eval_controller
-from . import reading_controller
+from daas import __version__
+
+from .judge_controller import judge_router
+from .eval_controller import eval_router
+from .reading_controller import reading_router
 
 
 def create_app() -> FastAPI:
@@ -19,9 +21,9 @@ def create_app() -> FastAPI:
     )
 
     # routing
-    app.include_router(judge_controller.router, prefix='/judge', tags=['dajare'])
-    app.include_router(eval_controller.router, prefix='/eval', tags=['dajare'])
-    app.include_router(reading_controller.router, prefix='/reading', tags=['dajare'])
+    app.include_router(judge_router, prefix='/judge', tags=['dajare'])
+    app.include_router(eval_router, prefix='/eval', tags=['dajare'])
+    app.include_router(reading_router, prefix='/reading', tags=['dajare'])
 
     # index
     @app.get('/')
@@ -31,7 +33,7 @@ def create_app() -> FastAPI:
     # OpenAPI
     app.title = 'DaaS API'
     app.description = 'This is a document of DaaS.'
-    app.version = '1.0.0'
+    app.version = __version__
 
     app.openapi_tags = [
         {"name": "dajare", "description": "Operation with dajare _(ダジャレ)_ ."}

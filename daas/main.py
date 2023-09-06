@@ -1,16 +1,16 @@
-#!/usr/bin/env python
-from fastapi.testclient import TestClient
-import uvicorn
-import json
-import glob
-import tqdm
 import random
 import argparse
+import json
+import glob
 
-from core import config
-from core import message
-from core.api.controller import create_app
+from fastapi.testclient import TestClient
+import uvicorn
 
+import tqdm
+
+from . import config
+from . import message
+from .api.controller import create_app
 
 def start_mode():
     app = create_app()
@@ -56,18 +56,26 @@ def accuracy_mode():
         f.write(json.dumps(error_samples, ensure_ascii=False, indent=2))
 
 
-if __name__ == '__main__':
+def parse_args() -> argparse.Namespase:
     # options
-    parser: argparse.ArgumentParser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--start',
                         help='start app',
                         action='store_true')
     parser.add_argument('-a', '--accuracy',
                         help='measure accuracy',
                         action='store_true')
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
 
     if args.start:
         start_mode()
     if args.accuracy:
         accuracy_mode()
+
+
+if __name__ == '__main__':
+    main()

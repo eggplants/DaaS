@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from core.service.dajare_service import DajareService
-from core.api.request.eval_request import EvalRequest
-from core.api.response.eval_response import EvalResponse
+from daas.service.dajare_service import DajareService
+from ..request.eval_request import EvalRequest
+from ..response.eval_response import EvalResponse
 
 dajare_service = DajareService()
 
-router = APIRouter()
+eval_router = APIRouter()
 
 
 @router.get('/', status_code=200, response_model=EvalResponse, include_in_schema=False)

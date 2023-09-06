@@ -1,8 +1,8 @@
 import numpy as np
 import Levenshtein
 
-from core import config
-from core.util import text_util
+from daas import config
+from daas import text_util
 
 
 class EvalEngine:

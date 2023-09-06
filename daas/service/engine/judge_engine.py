@@ -3,8 +3,8 @@ import re
 import pyboin
 import collections
 
-from core import config
-from core.util import text_util
+from daas import config
+from daas.util import text_util
 
 
 class JudgeEngine:

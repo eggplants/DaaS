@@ -1,3 +1,5 @@
+
+
 # path config
 DATA_FILE_PATH: str = './data/[!error]*.json'
 DATA_ERROR_FILE_PATH: str = './data/error.json'

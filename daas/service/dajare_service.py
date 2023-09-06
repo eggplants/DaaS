@@ -1,10 +1,10 @@
 from functools import lru_cache
 
-from core import config
-from core.model.dajare_model import DajareModel
-from core.service.engine.judge_engine import JudgeEngine
-from core.service.engine.eval_engine import EvalEngine
-from core.service.engine.reading_engine import ReadingEngine
+from .. import config
+from ..model.dajare_model import DajareModel
+from ..service.engine.judge_engine import JudgeEngine
+from ..service.engine.eval_engine import EvalEngine
+from ..service.engine.reading_engine import ReadingEngine
 
 
 class DajareService:
