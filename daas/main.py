@@ -56,7 +56,7 @@ def accuracy_mode():
         f.write(json.dumps(error_samples, ensure_ascii=False, indent=2))
 
 
-def parse_args() -> argparse.Namespase:
+def parse_args() -> argparse.Namespace:
     # options
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--start',

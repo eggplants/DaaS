@@ -9,8 +9,8 @@ dajare_service = DajareService()
 judge_router = APIRouter()
 
 
-@router.get('/', status_code=200, response_model=JudgeResponse, include_in_schema=False)
-@router.get('', status_code=200, response_model=JudgeResponse)
+@judge_router.get('/', status_code=200, response_model=JudgeResponse, include_in_schema=False)
+@judge_router.get('', status_code=200, response_model=JudgeResponse)
 async def judge_dajare(request: JudgeRequest = Depends()):
     # judge dajare
     try:

@@ -2,7 +2,7 @@ import numpy as np
 import Levenshtein
 
 from daas import config
-from daas import text_util
+from daas.util import text_util
 
 
 class EvalEngine:

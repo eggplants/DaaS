@@ -1,10 +1,10 @@
 import unittest
 from fastapi.testclient import TestClient
 
-from core.api.controller import create_app
-from core.api.request.judge_request import JudgeRequest
-from core.api.request.eval_request import EvalRequest
-from core.api.request.reading_request import ReadingRequest
+from daas.api.controller import create_app
+from daas.api.request.judge_request import JudgeRequest
+from daas.api.request.eval_request import EvalRequest
+from daas.api.request.reading_request import ReadingRequest
 
 
 class TestAPI(unittest.TestCase):

@@ -1,12 +1,14 @@
-
+from importlib import resources
 
 # path config
 DATA_FILE_PATH: str = './data/[!error]*.json'
 DATA_ERROR_FILE_PATH: str = './data/error.json'
-CONFIG_FILE_ROOT_PATH: str = './config'
-READING_DICT_FILE_PATH: str = CONFIG_FILE_ROOT_PATH + '/reading_dict.csv'
-JUDGE_PASS_DICT_PATH: str = CONFIG_FILE_ROOT_PATH + '/judge_pass_dict.txt'
-JUDGE_REJECT_DICT_PATH: str = CONFIG_FILE_ROOT_PATH + '/judge_reject_dict.txt'
+
+# internal configuration files
+CONFIG_FILE_ROOT_PATH: str = resources.files("daas") / "config"
+READING_DICT_FILE_PATH: str = CONFIG_FILE_ROOT_PATH / 'reading_dict.csv'
+JUDGE_PASS_DICT_PATH: str = CONFIG_FILE_ROOT_PATH / 'judge_pass_dict.txt'
+JUDGE_REJECT_DICT_PATH: str = CONFIG_FILE_ROOT_PATH / 'judge_reject_dict.txt'
 
 # text config
 TEXT_MAX_LENGTH: int = 30
