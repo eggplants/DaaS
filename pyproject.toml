@@ -103,5 +103,5 @@ warn_required_dynamic_aliases = true
 # Try: `poetry run task <task name>` or just `task <task name>` within `poetry shell`
 start = "daas --start"
 help = "daas --help"
-test = "python -m unittest discover tests"
+test = "pytest tests/"
 lint = "pre-commit run -a"
