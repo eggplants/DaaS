@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class DajareModel:
     __text: str
     __is_dajare: bool
@@ -12,7 +15,8 @@ class DajareModel:
     @text.setter
     def text(self, text: str):
         if not isinstance(text, str):
-            raise TypeError('invalid type')
+            msg = "invalid type"
+            raise TypeError(msg)
         self.__text = text
 
     @property
@@ -22,7 +26,8 @@ class DajareModel:
     @is_dajare.setter
     def is_dajare(self, is_dajare: bool):
         if not isinstance(is_dajare, bool):
-            raise TypeError('invalid type')
+            msg = "invalid type"
+            raise TypeError(msg)
         self.__is_dajare = is_dajare
 
     @property
@@ -32,9 +37,11 @@ class DajareModel:
     @score.setter
     def score(self, score: float):
         if not isinstance(score, float):
-            raise TypeError('invalid type')
+            msg = "invalid type"
+            raise TypeError(msg)
         if not (score >= 1.0 and score <= 5.0):
-            raise ValueError('score must be 1~5')
+            msg = "score must be 1~5"
+            raise ValueError(msg)
         self.__score = score
 
     @property
@@ -44,7 +51,8 @@ class DajareModel:
     @reading.setter
     def reading(self, reading: str):
         if not isinstance(reading, str):
-            raise TypeError('invalid type')
+            msg = "invalid type"
+            raise TypeError(msg)
         self.__reading = reading
 
     @property
@@ -54,5 +62,6 @@ class DajareModel:
     @applied_rule.setter
     def applied_rule(self, applied_rule: str):
         if not isinstance(applied_rule, str):
-            raise TypeError('invalid type')
+            msg = "invalid type"
+            raise TypeError(msg)
         self.__applied_rule = applied_rule

@@ -5,7 +5,7 @@
     "daas/"
   ],
   "search_path": [
-    {"site-package": "types-emoji"},
+    {"site-package": "types-emoji"}
   ],
   "strict": true
 }

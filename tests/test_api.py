@@ -1,18 +1,21 @@
+from __future__ import annotations
+
 import unittest
+
 from fastapi.testclient import TestClient
 
 from daas.api.controller import create_app
-from daas.api.request.judge_request import JudgeRequest
 from daas.api.request.eval_request import EvalRequest
+from daas.api.request.judge_request import JudgeRequest
 from daas.api.request.reading_request import ReadingRequest
 
 
 class TestAPI(unittest.TestCase):
-    DAJARE_JUDGE_PATH: str = '/judge'
-    DAJARE_EVAL_PATH: str = '/eval'
-    DAJARE_READING_PATH: str = '/reading'
+    DAJARE_JUDGE_PATH: str = "/judge"
+    DAJARE_EVAL_PATH: str = "/eval"
+    DAJARE_READING_PATH: str = "/reading"
 
-    SAMPLE_STR: str = '布団が吹っ飛んだ'
+    SAMPLE_STR: str = "布団が吹っ飛んだ"
 
     def setUp(self):
         self.app = TestClient(create_app())
@@ -26,15 +29,15 @@ class TestAPI(unittest.TestCase):
         res_json: dict = res.json()
 
         # verify
-        self.assertEqual(200, res.status_code)
-        self.assertIsInstance(res_json["is_dajare"], bool)
+        assert res.status_code == 200
+        assert isinstance(res_json["is_dajare"], bool)
 
     def test_異_判定APIのパラメータが不足(self):
         # test
         res = self.app.get(self.DAJARE_JUDGE_PATH, params={})
 
         # verify
-        self.assertEqual(422, res.status_code)
+        assert res.status_code == 422
 
     def test_正_ダジャレを評価(self):
         # setup
@@ -45,15 +48,15 @@ class TestAPI(unittest.TestCase):
         res_json: dict = res.json()
 
         # verify
-        self.assertEqual(200, res.status_code)
-        self.assertIsInstance(res_json["score"], float)
+        assert res.status_code == 200
+        assert isinstance(res_json["score"], float)
 
     def test_異_評価APIのパラメータが不足(self):
         # test
         res = self.app.get(self.DAJARE_EVAL_PATH, params={})
 
         # verify
-        self.assertEqual(422, res.status_code)
+        assert res.status_code == 422
 
     def test_正_ダジャレを読みに変換(self):
         # setup
@@ -64,12 +67,12 @@ class TestAPI(unittest.TestCase):
         res_json: dict = res.json()
 
         # verify
-        self.assertEqual(200, res.status_code)
-        self.assertIsInstance(res_json["reading"], str)
+        assert res.status_code == 200
+        assert isinstance(res_json["reading"], str)
 
     def test_異_読み変換APIのパラメータが不足(self):
         # test
         res = self.app.get(self.DAJARE_READING_PATH, params={})
 
         # verify
-        self.assertEqual(422, res.status_code)
+        assert res.status_code == 422

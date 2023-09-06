@@ -29,10 +29,11 @@ include = [
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4"
-Janome = "*"
 emoji = "*"
 fastapi = "*"
+httpx = "^0.24.1"
 jaconv = "*"
+janome = "*"
 kanjize = "*"
 mojimoji = "*"
 numpy = "*"
@@ -44,11 +45,11 @@ requests = "*"
 tqdm = "*"
 types-emoji = "*"
 uvicorn = "*"
-httpx = "^0.24.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = ">=0.991,<1.6"
 pre-commit = ">=2.20,<4.0"
+pytest = "*"
 taskipy = "^1.10.3"
 
 [tool.poetry.scripts]
@@ -69,6 +70,13 @@ line-length = 120
 ]
 "daas/message.py" = [
   "N802", # Function name `...` should be lowercase
+]
+"daas/api/controller/*_controller.py" = [
+  "UP007", # Use `X | Y` for type annotations
+  "B008", # Do not perform function call `Depends` in argument defaults
+  "B904", # Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+  "TCH001", # Move application import `daas.api.request.eval_request.EvalRequest` into a type-checking block
+  "TRY200", # Use `raise from` to specify exception cause
 ]
 "tests/*test_*.py" = [
   "ANN201",  # Missing return type annotation for public function ...
